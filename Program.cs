@@ -142,6 +142,14 @@ namespace SyntaxExplanation
             Pessoa pessoa1 = new Pessoa("Maria", 30);
             pessoa1.Apresentar();
 
+            // Herança e Polimorfismo:
+            Aluno aluno1 = new Aluno("Pedro", 25, "Engenharia", 12345);
+            aluno1.Apresentar(); // Método Apresentar() da classe Aluno
+
+            // Interfaces:
+            IImprimivel imprimivel = new Documento("Exemplo", "Texto de exemplo...");
+            imprimivel.Imprimir();
+
             Console.ReadLine();
         }
 
@@ -166,9 +174,56 @@ namespace SyntaxExplanation
         }
 
         // Método da classe:
-        public void Apresentar()
+        public virtual void Apresentar()
         {
             Console.WriteLine("Olá, meu nome é " + Nome + " e tenho " + Idade + " anos.");
+        }
+    }
+
+    // Herança: Aluno herda de Pessoa
+    class Aluno : Pessoa
+    {
+        public string Curso { get; set; }
+        public int Matricula { get; set; }
+
+        // Construtor da classe Aluno:
+        public Aluno(string nome, int idade, string curso, int matricula) : base(nome, idade)
+        {
+            Curso = curso;
+            Matricula = matricula;
+        }
+
+        // Método da classe Aluno (sobrescrita do método Apresentar da classe Pessoa):
+        public override void Apresentar()
+        {
+            Console.WriteLine("Olá, meu nome é " + Nome + ", tenho " + Idade + " anos e sou aluno de " + Curso + " (Matrícula: " + Matricula + ").");
+        }
+    }
+
+    // Interfaces:
+    interface IImprimivel
+    {
+        void Imprimir();
+    }
+
+    // Implementação da interface IImprimivel:
+    class Documento : IImprimivel
+    {
+        public string Titulo { get; set; }
+        public string Conteudo { get; set; }
+
+        public Documento(string titulo, string conteudo)
+        {
+            Titulo = titulo;
+            Conteudo = conteudo;
+        }
+
+        // Implementação do método da interface IImprimivel:
+        public void Imprimir()
+        {
+            Console.WriteLine("Imprimindo documento: ");
+            Console.WriteLine("Título: " + Titulo);
+            Console.WriteLine("Conteúdo: " + Conteudo);
         }
     }
 }
